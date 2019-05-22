@@ -8,22 +8,31 @@
         <id property="studId" column="stu_id" />
         <result property="name" column="name" />
         <result property="email" column="email" />
-        <result property="dob" column="dod" />
+        <result property="dod" column="dod" />
     </resultMap>
 
     <select id="findAllStudents" resultMap="StudentResult">
 					select * from student
-				</select>
+	</select>
     <!-- 列名和属性名字不一致可以给查询的列起一个别名 -->
     <select id="findStudentById" parameterType="int" resultType="Student">
-					SELECT STUD_ID AS STUDID,NAME,EMAIL,DOD
+					SELECT STU_ID AS STUDID,NAME,EMAIL,DOD,phone
 					FROM STUDENT
 					WHERE
 					STU_ID=#{id}
-				</select>
+	</select>
     <insert id="insertStudent" parameterType="Student">
 					INSERT INTO
-					STUDENT(STU_ID,NAME,EMAIL,DOD)
-					VALUES(#{studId},#{name},#{email},#{dob})
-				</insert>
+					STUDENT(STU_ID,NAME,EMAIL,DOD,phone)
+					VALUES(#{studId},#{name},#{email},#{dod},#{phone})
+	</insert>
+	<update id="updateStudentById" parameterType="Student">
+			update student set name=#{name} where STU_ID=#{studId}
+	</update>
+	<delete id="deleteStudentById" parameterType="int">
+		   delete from student where STU_ID=#{id};
+	</delete>
+	<delete id="deleteAllStudents">
+		delete from student;
+	</delete>
 </mapper>
