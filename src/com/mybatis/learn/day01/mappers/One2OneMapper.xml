@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- com.briup.mappers.StudentMapper是我们定义接口的全限定名字 这样就可以使用接口调用映射的SQL语句了 这个名字一定要和接口对应上-->
+<mapper namespace="com.mybatis.learn.day01.mappers.One2OneMapper">
+    <!--最基本的resultMap-->
+   <!-- <resultMap type="Students" id="StudentResult">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone" />
+        <result property="dob" column="dob" />
+    </resultMap>
+
+    <resultMap id="SttudentWithAddressResult" type="Students" extends="StudentResult">
+        <result property="address.addrId" column="addr_id" />
+        <result property="address.street" column="street" />
+        <result property="address.city" column="city" />
+        <result property="address.state" column="state" />
+        <result property="address.zip" column="zip" />
+        <result property="address.country" column="country" />
+    </resultMap>-->
+    <!--嵌套结果的方式-->
+    <resultMap type="Address" id="AddressResult">
+        <id property="addrId" column="addr_id" />
+        <result property="street" column="street" />
+        <result property="city" column="city" />
+        <result property="state" column="state" />
+        <result property="zip" column="zip" />
+        <result property="country" column="country" />
+    </resultMap>
+
+    <resultMap type="Students" id="StudentWithAddressResult">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone"/>
+        <result property="dob" column="dob"/>
+        <!--一对一映射-->
+        <association property="address" resultMap="AddressResult" />
+
+    </resultMap>
+
+    <select id="findStudentWithAddress" parameterType="int" resultMap="StudentWithAddressResult">
+			select stud_id, name, email, phone,dob,
+			a.addr_id, street, city, state,
+			zip, country
+			from students s left outer join addresses a on
+			s.addr_id=a.addr_id
+			where stud_id=#{studid}
+	</select>
+    <!--嵌套查询-->
+   <!-- <resultMap id="AddressResult" type="Address">
+        <id property="addrId" column="addr_id" />
+        <result property="street" column="street" />
+        <result property="city" column="city" />
+        <result property="state" column="state" />
+        <result property="zip" column="zip" />
+        <result property="country" column="country" />
+    </resultMap>
+    <select id="findAddressById" parameterType="int" resultMap="AddressResult">
+			select * from addresses where addr_id=#{id}
+		</select>
+
+    <resultMap id="StudentWithAddressResult" type="Students">
+        <id property="studId" column="stud_id" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="phone" column="phone"/>
+        <result property="dob" column="dob"/>
+        <association property="address" column="addr_id" select="findAddressById" />
+    </resultMap>
+    <select id="findStudentWithAddress" parameterType="int" resultMap="StudentWithAddressResult">
+			select * from students where stud_id=#{id}
+	</select>-->
+</mapper>

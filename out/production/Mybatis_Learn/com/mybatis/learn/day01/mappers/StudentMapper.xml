@@ -14,8 +14,25 @@
     <select id="findAllStudents" resultMap="StudentResult">
 					select * from student
 	</select>
+	<select id="findAllStudents_Set" resultMap="StudentResult">
+					select * from student
+	</select>
+	<select id="findAllStudents_Map" resultType="map">
+					select * from student
+	</select>
+	<select id="findAllStudents_SortedSet" resultMap="StudentResult">
+					select * from student
+	</select>
+
+
     <!-- 列名和属性名字不一致可以给查询的列起一个别名 -->
     <select id="findStudentById" parameterType="int" resultType="Student">
+					SELECT STU_ID AS STUDID,NAME,EMAIL,DOD,phone
+					FROM STUDENT
+					WHERE
+					STU_ID=#{id}
+	</select>
+	<select id="findStudentById_Map" parameterType="int" resultType="map">
 					SELECT STU_ID AS STUDID,NAME,EMAIL,DOD,phone
 					FROM STUDENT
 					WHERE
@@ -35,4 +52,28 @@
 	<delete id="deleteAllStudents">
 		delete from student;
 	</delete>
+
+	<!--神奇的分割线-->
+	<!--最基础-->
+	<resultMap type="Students" id="StudentWithAddressResult">
+		<id property="studId" column="stud_id" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="address.addrId" column="addr_id" />
+		<result property="address.street" column="street" />
+		<result property="address.city" column="city" />
+		<result property="address.state" column="state" />
+		<result property="address.zip" column="zip" />
+		<result property="address.country" column="country" />
+	</resultMap>
+	<select id="selectStudentWithAddress" parameterType="int" 	resultMap="StudentWithAddressResult">
+			select stud_id, name, email, a.addr_id, street, city, state, zip, country
+			from students s left outer join addresses a on
+				s.addr_id=a.addr_id
+			where stud_id=#{studid}
+	</select>
+
+
+
 </mapper>

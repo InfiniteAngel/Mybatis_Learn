@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class Student {
+public class Student implements Comparable<Student>{
     private Integer studId;
     private String name;
     private String email;
@@ -29,5 +29,16 @@ public class Student {
         this.email = email;
         this.dod = dod;
         this.phone = phone;
+    }
+
+    @Override
+    public int compareTo(Student student) {
+        if (studId<student.studId) {
+            return -1;
+        }
+        if (studId>student.studId){
+            return 1;
+        }
+        return 0;
     }
 }
