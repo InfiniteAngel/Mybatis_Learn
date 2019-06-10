@@ -6,12 +6,12 @@
     </properties>
     <!--别名-->
     <typeAliases>
-        <typeAlias type="com.mybatis.learn.day01.pojo.Student" alias="Student" />
-        <typeAlias type="com.mybatis.learn.day01.pojo.Students" alias="Students" />
         <typeAlias type="com.mybatis.learn.day01.pojo.Address" alias="Address"/>
         <package name="com.mybatis.learn.day01.pojo"/>
     </typeAliases>
     <typeHandlers>
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler"
+                     javaType="com.mybatis.learn.day01.pojo.Gender"/>
         <typeHandler handler="com.mybatis.learn.day01.handlers.PhoneTypeHandler"/>
     </typeHandlers>
 
@@ -28,9 +28,9 @@
     </environments>
 
     <mappers>
-        <mapper resource="com/mybatis/learn/day01/mappers/One2ManyMapper.xml"/>
-        <mapper resource="com/mybatis/learn/day01/mappers/One2OneMapper.xml"/>
-        <mapper resource="com/mybatis/learn/day01/mappers/StudentMapper.xml"/>
+        <mapper resource="com/mybatis/learn/day01/mappers/Many2ManyMapper.xml"/>
+        <mapper resource="com/mybatis/learn/day02/mappers/SpecialMapper.xml"/>
+        <mapper resource="com/mybatis/learn/day02/mappers/DynamicMapper.xml"/>
     </mappers>
 
 </configuration>

@@ -9,8 +9,13 @@ import java.util.Date;
 @Data
 public class Course {
     private Integer courseId;
+    private String name;
+    private String description;
+    private Date startDate;
+    private Date endDate;
 
     public Course() {
+
     }
 
     public Course(Integer courseId, String name, String description, Date startDate, Date endDate) {
@@ -21,8 +26,5 @@ public class Course {
         this.endDate = endDate;
     }
 
-    private String name;
-    private String description;
-    private Date startDate;
-    private Date endDate;
+
 }
