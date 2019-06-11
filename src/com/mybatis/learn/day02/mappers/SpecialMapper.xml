@@ -7,4 +7,16 @@
         values(#{name},#{gender})
     </insert>
 
+    <insert id="insertUserPic" useGeneratedKeys="true" keyProperty="id" parameterType="UserPic">
+        insert into user_pics(name, pic,bio)
+        values(#{name},#{pic},#{bio})
+    </insert>
+    <select id="getUserPicById" parameterType="int" resultType="UserPic">
+			select * from user_pics where id=#{id}
+	</select>
+
+    <select id="findAllUsers" resultType="User">
+			select id,name,gender from t_user
+	</select>
+
 </mapper>
